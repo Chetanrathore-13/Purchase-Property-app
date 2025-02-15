@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
-import path from "path";
+
 
 dotenv.config({
     path: "./.env",
@@ -11,8 +11,6 @@ dotenv.config({
 const app = express();
 app.use(express.json());
 app.use(cors());
-// app.set("view engine", "ejs");
-// app.set("views", path.join(path.resolve(), "src/views"))
 
 const connectDb = async () => {
     try {
@@ -24,6 +22,11 @@ const connectDb = async () => {
 };
 connectDb();
 
+import locationRoutes from './routes/locationRoutes.js';
+app.use("/api/v1",locationRoutes)
+
+import propertyFeature from "./routes/propertyFeatureRoutes.js"
+app.use("/api/v1",propertyFeature)
 
 import authRoutes from "./routes/auth.js";
 app.use("/api/v1/auth", authRoutes);
